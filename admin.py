@@ -62,4 +62,4 @@ class Config_PropertyAdmin( admin.ModelAdmin ):
 
 #-- END IssueAdmin admin class --#
 
-admin.site.register( Issue, IssueAdmin )
+admin.site.register( Config_Property, Config_PropertyAdmin )
