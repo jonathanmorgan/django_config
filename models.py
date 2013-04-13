@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 # Dated_Model abstract model
-class Config_Property( Dated_Model ):
+class Config_Property( models.Model ):
 
     '''
     Config_Properties creates a table for configuration settings where each row
