@@ -30,7 +30,7 @@ class Config_Property( models.Model ):
 
     application = models.CharField( max_length = 255 )
     property_name = models.CharField( max_length = 255 )
-    propert_value = models.TextField( blank = True, null = True )
+    property_value = models.TextField( blank = True, null = True )
     create_date = models.DateTimeField( auto_now_add = True )
     last_update = models.DateTimeField( auto_now = True )
 
