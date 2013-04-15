@@ -41,6 +41,46 @@ class Config_Property( models.Model ):
 
 
     @classmethod
+    def get_property_boolean_value( cls, application_IN, property_name_IN, default_IN = False, *args, **kwargs ):
+        
+        # return reference
+        value_OUT = None
+        
+        # declare variables
+        prop_value = None
+        
+        # get property
+        prop_value = cls.get_property_value( application_IN, property_name_IN, default_IN )
+
+        # convert to int if not None.
+        if ( ( prop_value ) and ( prop_value != None ) ):
+            
+            # Not none - see if it is a known value for True.
+            if ( ( prop_value.lower() == "true" ) or ( prop_value == 1 ) or ( prop_value == True ) ):
+            
+                # true.
+                value_OUT = True
+                
+            else:
+            
+                # false.  Or unknown. Which is false.
+                value_OUT = False
+
+            #-- END check to see if true or false. --#
+            
+        else:
+            
+            # None - convert default to int.
+            value_OUT = default_IN
+            
+        #-- END check to make sure we don't try to convert None to int. --#       
+        
+        return value_OUT
+        
+    #-- END method get_property_boolean_value() --#
+
+
+    @classmethod
     def get_property_int_value( cls, application_IN, property_name_IN, default_IN = 0, *args, **kwargs ):
         
         # return reference
