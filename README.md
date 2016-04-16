@@ -20,7 +20,7 @@ It provides methods for retrieving configuration properties that allow for a def
 
             git clone https://github.com/jonathanmorgan/django_config
             
-    - add the `django_config` application to `INSTALLED_APPS`:
+    - add the `django_config.apps.Django_ConfigConfig` application to `INSTALLED_APPS`:
     
             INSTALLED_APPS = (
                 'django.contrib.auth',
@@ -33,7 +33,7 @@ It provides methods for retrieving configuration properties that allow for a def
                 # 'django.contrib.admin',
                 # Uncomment the next line to enable admin documentation:
                 # 'django.contrib.admindocs',
-                'django_config',
+                'django_config.apps.Django_ConfigConfig',
             )
         
     - install database tables
@@ -66,7 +66,7 @@ It provides methods for retrieving configuration properties that allow for a def
 
 # License
 
-Copyright 2013-present (2014) Jonathan Morgan
+Copyright 2013-present (2016) Jonathan Morgan
 
 This file is part of [https://github.com/jonathanmorgan/django_config](https://github.com/jonathanmorgan/django_config).
 

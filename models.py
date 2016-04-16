@@ -1,5 +1,7 @@
+from __future__ import unicode_literals
+
 '''
-Copyright 2013 Jonathan Morgan
+Copyright 2013-present (2016) Jonathan Morgan
 
 This file is part of https://github.com/jonathanmorgan/django_config.
 
@@ -11,9 +13,10 @@ You should have received a copy of the GNU Lesser General Public License along w
 '''
 
 from django.db import models
+import django.utils.encoding
+from django.utils.encoding import python_2_unicode_compatible
 
-# Create your models here.
-# Dated_Model abstract model
+@python_2_unicode_compatible
 class Config_Property( models.Model ):
 
     '''
@@ -148,7 +151,7 @@ class Config_Property( models.Model ):
                 prop_qs = prop_qs.filter( property_name = property_name_IN )
                 
                 # anything in it?
-                if ( ( prop_qs ) and ( prop_qs > 0 ) ):
+                if ( ( prop_qs is not None ) and ( prop_qs.count() > 0 ) ):
                     
                     # got at least one attribute.  For now, grab first one.
                     prop_value = prop_qs[ 0 ]
@@ -212,7 +215,7 @@ class Config_Property( models.Model ):
                 prop_qs = prop_qs.filter( property_name = property_name_IN )
                 
                 # anything in it?
-                if ( ( prop_qs ) and ( prop_qs > 0 ) ):
+                if ( ( prop_qs is not None ) and ( prop_qs.count() > 0 ) ):
                     
                     # got at least one property.  For now, grab first one.
                     prop_value = prop_qs[ 0 ]
@@ -252,7 +255,12 @@ class Config_Property( models.Model ):
     #-- END method set_property_value() --#
 
     
-    def __unicode__( self ):
+    #----------------------------------------------------------------------
+    # instance methods
+    #----------------------------------------------------------------------
+
+
+    def __str__( self ):
         
         # return reference
         string_OUT = ''
@@ -283,7 +291,7 @@ class Config_Property( models.Model ):
 
         return string_OUT
         
-    #-- END __unicode__() method --#
+    #-- END __str__() method --#
         
 
 #= END Config_Property Model ==============================================
