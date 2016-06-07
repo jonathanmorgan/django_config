@@ -49,15 +49,15 @@ class Config_PropertyAdmin( admin.ModelAdmin ):
     fieldsets = [
         ( None,
             {
-                'fields' : [ 'application', 'property_name', 'property_value' ]
+                'fields' : [ 'application', 'property_name', 'property_type', 'property_value', ]
             }
         ),
     ]
 
-    list_display = ( 'id', 'application', 'property_name', 'property_value', )
+    list_display = ( 'id', 'application', 'property_name', 'property_type', 'property_value', )
     list_display_links = ( 'id', 'property_name', )
-    list_filter = [ 'application', ]
-    search_fields = [ 'application', 'property_name', 'property_value', ]
+    list_filter = [ 'application', 'property_type' ]
+    search_fields = [ 'application', 'property_name', 'property_value', 'property_type' ]
     # date_hierarchy = 'status_date'
     # actions = [ toggle_published_flag ]
     ordering = [ '-last_update' ]

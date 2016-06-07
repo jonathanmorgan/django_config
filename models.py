@@ -25,6 +25,7 @@ class Config_Property( models.Model ):
     - application
     - property_name
     - property_value
+    - property_type
     
     It also provides methods for interacting with configuration properties, such
        that you can set a default as part of the call, and so deal with the
@@ -37,7 +38,22 @@ class Config_Property( models.Model ):
 
     APPLICATION_CORE = "core" # Application you can use for site-wide settings.
     APPLICATION_DEFAULT = APPLICATION_CORE
-
+    
+    # property types
+    TYPE_NONE = None
+    TYPE_STRING = "string"
+    TYPE_INT = "int"
+    TYPE_DECIMAL = "decimal"
+    TYPE_BOOLEAN = "boolean"
+    TYPE_DEFAULT = TYPE_NONE
+    
+    TYPE_CHOICES = (
+        ( TYPE_NONE, 'None' ),
+        ( TYPE_STRING, 'String' ),
+        ( TYPE_INT, 'Integer' ),
+        ( TYPE_DECIMAL, 'Decimal' ),
+        ( TYPE_BOOLEAN, 'Boolean' )
+    )
 
     #---------------------------------------------------------------------------
     # django model fields
@@ -46,6 +62,7 @@ class Config_Property( models.Model ):
     application = models.CharField( max_length = 255 )
     property_name = models.CharField( max_length = 255 )
     property_value = models.TextField( blank = True, null = True )
+    property_type = models.CharField( max_length = 255, blank = True, null = True, choices = TYPE_CHOICES, default = TYPE_DEFAULT )
     create_date = models.DateTimeField( auto_now_add = True )
     last_update = models.DateTimeField( auto_now = True )
 
