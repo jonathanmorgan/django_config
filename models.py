@@ -12,6 +12,8 @@ django_config is distributed in the hope that it will be useful, but WITHOUT ANY
 You should have received a copy of the GNU Lesser General Public License along with https://github.com/jonathanmorgan/django_config. If not, see http://www.gnu.org/licenses/.
 '''
 
+import six
+
 from django.db import models
 import django.utils.encoding
 from django.utils.encoding import python_2_unicode_compatible
@@ -84,11 +86,13 @@ class Config_Property( models.Model ):
         # get property
         prop_value = cls.get_property_value( application_IN, property_name_IN, default_IN )
 
-        # convert to int if not None.
+        # convert to boolean if not None.
         if ( ( prop_value ) and ( prop_value != None ) ):
             
             # Not none - see if it is a known value for True.
-            if ( ( prop_value.lower() == "true" ) or ( prop_value == 1 ) or ( prop_value == True ) ):
+            if ( ( prop_value == True )
+                or ( ( isinstance( prop_value, six.integer_types ) == True ) and ( prop_value == 1 ) )
+                or ( ( isinstance( prop_value, six.string_types ) == True ) and ( prop_value.lower() == "true" ) ) ):
             
                 # true.
                 value_OUT = True
