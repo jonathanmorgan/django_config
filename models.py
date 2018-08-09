@@ -18,6 +18,9 @@ from django.db import models
 import django.utils.encoding
 from django.utils.encoding import python_2_unicode_compatible
 
+# python_utilities
+from python_utilities.lists.list_helper import ListHelper
+
 @python_2_unicode_compatible
 class Config_Property( models.Model ):
 
@@ -144,6 +147,36 @@ class Config_Property( models.Model ):
         return value_OUT
         
     #-- END method get_property_int_value() --#
+
+
+    @classmethod
+    def get_property_list_value( cls, application_IN, property_name_IN, default_IN = None, delimiter_IN = ",", *args, **kwargs ):
+        
+        # return reference
+        value_OUT = None
+        
+        # declare variables
+        prop_value = None
+        
+        # get property
+        prop_value = cls.get_property_value( application_IN, property_name_IN, default_IN )
+
+        # convert to int if not None.
+        if ( prop_value != None ):
+            
+            # Not none - convert to int.
+            value_OUT = ListHelper.get_value_as_list( prop_value, delimiter_IN )
+            
+        else:
+            
+            # None - empty list.
+            value_OUT = []
+            
+        #-- END check to make sure we don't try to convert None to list. --#       
+        
+        return value_OUT
+        
+    #-- END method get_property_list_value() --#
 
 
     @classmethod
