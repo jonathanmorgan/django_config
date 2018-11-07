@@ -320,25 +320,30 @@ class Config_Property( models.Model ):
         string_OUT = ''
         prefix = ""
         
-        string_OUT = self.id
-        prefix = " - "
+        if ( self.id is not None ):
+        
+            string_OUT = str( self.id )
+            prefix = " - "
+            
+        #-- END check for ID --#
         
         if ( self.application ):
 
-            string_OUT = prefix + "application: " + self.application
+            string_OUT += prefix + "application: " + self.application
             prefix = "; "
             
         #-- END check for application --#
             
         if ( self.property_name ):
 
-            string_OUT = prefix + "prop name: " + self.property_name
+            string_OUT += prefix + "prop name: " + self.property_name
             prefix = "; "
             
         #-- END check for property_name field --#
 
         if ( self.property_value ):
-            string_OUT = prefix + "prop value: " + self.property_value
+
+            string_OUT += prefix + "prop value: " + self.property_value
             prefix = "; "
             
         #-- END check for property_value field --#
