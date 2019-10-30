@@ -1,6 +1,6 @@
 # django_config
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3523235.svg)](https://doi.org/10.5281/zenodo.3523235)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3523195.svg)](https://doi.org/10.5281/zenodo.3523195)
 
 <!-- TOC -->
 
