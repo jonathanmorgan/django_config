@@ -8,18 +8,24 @@ This is a basic django app that creates a table for EAV (Entity-Attribute-Value)
 - property_name
 - property_value
 
-It provides methods for retrieving configuration properties that allow for a default value to be passed in.  This is purposely not all that complicated or sophisticated.  If you want something more robust, there are other, better options.  This is quick and dirty.
+It provides methods for retrieving configuration properties that allow for a default value to be passed in.  It is entirely in the admin and ORM layer, does not include an external-facing web app.  This is purposely not all that complicated or sophisticated.  If you want something more robust, there are other, better options.  This is quick and dirty.
 
 # Installation
 
-- This application, simple though it may be, has been updated to support django 1.7, and with it the new built-in data migrations.  It should work on django 1.6 or earlier if you install south, but the south migrations are now separate from the django 1.7 migrations, and I can't guarantee that they will be updated (and, I can guarantee that they won't be updated unless someone asks, and no one but me uses this, so that would indicate a troubling cognitive division on my part).
+- This application, simple though it may be, has been updated to support django 1.7 and later, and with it the new built-in data migrations.
 
 - Install django\_config application:
 
-    - Clone code into your django site/project.
+    - install django_config - Either:
+    
+        - install using pip:
 
-            git clone https://github.com/jonathanmorgan/django_config
+                pip install django-basic-config
             
+        - Clone code into your django site/project.
+
+                git clone https://github.com/jonathanmorgan/django_config
+
     - add the `django_config.apps.Django_ConfigConfig` application to `INSTALLED_APPS`:
     
             INSTALLED_APPS = (
@@ -40,33 +46,9 @@ It provides methods for retrieving configuration properties that allow for a def
     
             python manage.py migrate django_config
 
-## archive: Installing south on django before 1.7
-
-- install South (data migration tool), if it isn't already installed.
-
-        (sudo) pip install South
-
-- in settings.py, add 'south' to the INSTALLED\_APPS list.  Example:
-    
-        INSTALLED_APPS = (
-            'django.contrib.auth',
-            'django.contrib.contenttypes',
-            'django.contrib.sessions',
-            'django.contrib.sites',
-            'django.contrib.messages',
-            'django.contrib.staticfiles',
-            # Uncomment the next line to enable the admin:
-            # 'django.contrib.admin',
-            # Uncomment the next line to enable admin documentation:
-            # 'django.contrib.admindocs',
-            'south',
-        )
-
-- Once database is configured in settings.py, in your site directory, run "python manage.py syncdb" to create database tables.
-
 # License
 
-Copyright 2013-present (2016) Jonathan Morgan
+Copyright 2013-present (2019) Jonathan Morgan
 
 This file is part of [https://github.com/jonathanmorgan/django_config](https://github.com/jonathanmorgan/django_config).
 
