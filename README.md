@@ -1,5 +1,7 @@
 # django_config
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3523196.svg)](https://doi.org/10.5281/zenodo.3523196)
+
 <!-- TOC -->
 
 This is a basic django app that creates a table for EAV (Entity-Attribute-Value) configuration settings where each row has the following fields:
