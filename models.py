@@ -16,12 +16,10 @@ import six
 
 from django.db import models
 import django.utils.encoding
-from django.utils.encoding import python_2_unicode_compatible
 
 # python_utilities
 from python_utilities.lists.list_helper import ListHelper
 
-@python_2_unicode_compatible
 class Config_Property( models.Model ):
 
     '''

@@ -50,7 +50,7 @@ It provides methods for retrieving configuration properties that allow for a def
 
 # License
 
-Copyright 2013-present (2019) Jonathan Morgan
+Copyright 2020 Jonathan Morgan
 
 This file is part of [https://github.com/jonathanmorgan/django_config](https://github.com/jonathanmorgan/django_config).
 
