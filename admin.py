@@ -64,16 +64,6 @@ class Config_PropertyAdmin( admin.ModelAdmin ):
 
     # formfield_overrides = { models.TextField: { 'widget' : forms.Textarea( attrs = { 'class' : 'vLargeTextField' } ) }, }
 
-    # class Media:
-
-        #js = ( '/js/ckeditor/ckeditor.js', 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js', '/js/ckeditor/adapters/jquery.js', '/js/ckeditor_config.js', '/js/jqplugins/jquery-autocomplete/jquery.autocomplete.min.js', '/js/django/ajax_select.js', )
-        #js = default_js
-        #css = {
-        #    'all' : ( '/js/jqplugins/jquery-autocomplete/jquery.autocomplete.css', '/js/jqplugins/jquery-autocomplete/iconic.css' )
-        #}
-        
-    #-- END class Media --#
-
 #-- END IssueAdmin admin class --#
 
 admin.site.register( Config_Property, Config_PropertyAdmin )
