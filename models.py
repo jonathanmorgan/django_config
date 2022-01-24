@@ -63,6 +63,7 @@ class Config_Property( models.Model ):
     #---------------------------------------------------------------------------
 
     application = models.CharField( max_length = 255 )
+    property_group = models.CharField( max_length = 255, blank = True, null = True )
     property_name = models.CharField( max_length = 255 )
     property_value = models.TextField( blank = True, null = True )
     property_type = models.CharField( max_length = 255, blank = True, null = True, choices = TYPE_CHOICES, default = TYPE_DEFAULT )
