@@ -20,7 +20,7 @@ import django.utils.encoding
 # python_utilities
 from python_utilities.lists.list_helper import ListHelper
 
-class Config_Property( models.Model ):
+class Abstract_Config_Property( models.Model ):
 
     '''
     Config_Properties creates a table for configuration settings where each row
@@ -69,6 +69,19 @@ class Config_Property( models.Model ):
     property_type = models.CharField( max_length = 255, blank = True, null = True, choices = TYPE_CHOICES, default = TYPE_DEFAULT )
     create_date = models.DateTimeField( auto_now_add = True )
     last_update = models.DateTimeField( auto_now = True )
+
+
+    #----------------------------------------------------------------------
+    # class meta
+    #----------------------------------------------------------------------
+
+    # Meta-data for this class.
+    class Meta:
+
+        abstract = True
+        ordering = [ 'application', 'property_group', 'property_name' ]
+
+    #-- END class Meta --#
 
 
     #----------------------------------------------------------------------
@@ -352,4 +365,4 @@ class Config_Property( models.Model ):
     #-- END __str__() method --#
         
 
-#= END Config_Property Model ==============================================
+#= END Abstract_Config_Property Model =========================================#
