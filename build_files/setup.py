@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setuptools.setup(
     name="django-basic-config", # Replace with your own username
-    version="1.0.1",
+    version="1.1.0",
     author="Jonathan Morgan",
     author_email="jonathan.morgan.007@gmail.com",
     description="This is a basic django app that creates a table for EAV (Entity-Attribute-Value) configuration settings.",
