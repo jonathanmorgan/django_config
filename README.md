@@ -1,6 +1,9 @@
 # django_config
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3523195.svg)](https://doi.org/10.5281/zenodo.3523195)
+_latest_: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3523195.svg)](https://doi.org/10.5281/zenodo.3523195)
+v.1.1.0: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5911772.svg)](https://doi.org/10.5281/zenodo.5911772)
+v.1.0.2: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3713192.svg)](https://doi.org/10.5281/zenodo.3713192)
+
 
 <!-- TOC -->
 
