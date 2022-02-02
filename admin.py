@@ -22,6 +22,9 @@ from django.contrib import admin
 from django import forms
 from django.db import models
 
+# django_json_widget imports
+from django_json_widget.widgets import JSONEditorWidget
+
 # start with default admin screens - comment out as we make fancier additions
 #    below.
 # admin.site.register( Config_Property )
@@ -46,18 +49,40 @@ default_js = ( '/js/ckeditor_config.js', )
 
 class Config_PropertyAdmin( admin.ModelAdmin ):
 
+    formfield_overrides = {
+        models.JSONField: { 'widget': JSONEditorWidget },
+    }
+
     fieldsets = [
         ( None,
             {
                 'fields' : [ 'application', 'property_group', 'property_name', 'property_type', 'property_value', ]
             }
         ),
+        (
+            "More Detail (optional)",
+            {
+                'fields' : [
+                    'extra_info',
+                    'extra_info_json'
+                ],
+                'classes' : ( "collapse", )
+            }
+        )
     ]
 
     list_display = ( 'id', 'application', 'property_group', 'property_name', 'property_type', 'property_value', )
     list_display_links = ( 'id', 'property_name', )
     list_filter = [ 'application', 'property_group', 'property_type' ]
-    search_fields = [ 'application', 'property_group', 'property_name', 'property_value', 'property_type' ]
+    search_fields = [
+        'application',
+        'property_group',
+        'property_name',
+        'property_value',
+        'property_type',
+        'extra_info',
+        'extra_info_json'
+    ]
     # date_hierarchy = 'status_date'
     # actions = [ toggle_published_flag ]
     ordering = [ '-last_update' ]

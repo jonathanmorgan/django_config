@@ -67,6 +67,8 @@ class Abstract_Config_Property( models.Model ):
     property_name = models.CharField( max_length = 255 )
     property_value = models.TextField( blank = True, null = True )
     property_type = models.CharField( max_length = 255, blank = True, null = True, choices = TYPE_CHOICES, default = TYPE_DEFAULT )
+    extra_info = models.TextField( blank = True, null = True )
+    extra_info_json = models.JSONField( blank = True, null = True )
     create_date = models.DateTimeField( auto_now_add = True )
     last_update = models.DateTimeField( auto_now = True )
 
@@ -87,6 +89,77 @@ class Abstract_Config_Property( models.Model ):
     #----------------------------------------------------------------------
     # class methods
     #----------------------------------------------------------------------
+
+
+    @classmethod
+    def get_property( cls,
+                      application_IN,
+                      property_name_IN,
+                      default_IN = None,
+                      property_group_IN = None,
+                      *args,
+                      **kwargs ):
+
+        # return reference
+        instance_OUT = None
+
+        # declare variables
+        prop_qs = None
+        prop_value = None
+
+        # make sure we have an application
+        if ( ( application_IN ) and ( application_IN != "" ) ):
+
+            # make sure we have a property name
+            if ( ( property_name_IN ) and ( property_name_IN != "" ) ):
+
+                # got one.  look for associated attributes with that name.
+
+                # get QuerySet of attributes for this Object.
+                prop_qs = cls.objects.all()
+
+                # filter based on application and property name passed in.
+                prop_qs = prop_qs.filter( application = application_IN )
+                prop_qs = prop_qs.filter( property_name = property_name_IN )
+
+                # got a group? if so, filter on it, too.
+                if ( property_group_IN is not None ):
+
+                    # filter on group
+                    prop_qs = prop_qs.filter( property_group = property_group_IN )
+
+                #-- END check if there is a property group specified. --#
+
+                # anything in it?
+                if ( ( prop_qs is not None ) and ( prop_qs.count() > 0 ) ):
+
+                    # got at least one attribute.  For now, grab first one.
+                    instance_OUT = prop_qs[ 0 ]
+
+                else:
+
+                    # no matching attribute.
+                    instance_OUT = None
+
+                #-- END check to see if any matching attributes. --#
+
+            else:
+
+                # no name - return None.
+                instance_OUT = None
+
+            #-- END check to see if name. --#
+
+        else:
+
+            # no application - return None.
+            instance_OUT = None
+
+        #-- END check to see if application. --#
+
+        return instance_OUT
+
+    #-- END method get_property() --#
 
 
     @classmethod
@@ -232,7 +305,7 @@ class Abstract_Config_Property( models.Model ):
         value_OUT = None
 
         # declare variables
-        prop_qs = None
+        prop_instance = None
         prop_value = None
 
         # make sure we have an application
@@ -241,31 +314,19 @@ class Abstract_Config_Property( models.Model ):
             # make sure we have a property name
             if ( ( property_name_IN ) and ( property_name_IN != "" ) ):
 
-                # got one.  look for associated attributes with that name.
+                # got prop info.  look for matching property.
+                prop_instance = cls.get_property( application_IN,
+                                                  property_name_IN,
+                                                  default_IN = default_IN,
+                                                  property_group_IN = property_group_IN,
+                                                  *args,
+                                                  **kwargs )
 
-                # get QuerySet of attributes for this Object.
-                prop_qs = cls.objects.all()
+                # found a match?
+                if ( prop_instance is not None ):
 
-                # filter based on application and property name passed in.
-                prop_qs = prop_qs.filter( application = application_IN )
-                prop_qs = prop_qs.filter( property_name = property_name_IN )
-
-                # got a group? if so, filter on it, too.
-                if ( property_group_IN is not None ):
-
-                    # filter on group
-                    prop_qs = prop_qs.filter( property_group = property_group_IN )
-
-                #-- END check if there is a property group specified. --#
-
-                # anything in it?
-                if ( ( prop_qs is not None ) and ( prop_qs.count() > 0 ) ):
-
-                    # got at least one attribute.  For now, grab first one.
-                    prop_value = prop_qs[ 0 ]
-
-                    # return value in that instance
-                    value_OUT = prop_value.property_value
+                    # got one. Return its value.
+                    value_OUT = prop_instance.property_value
 
                 else:
 
@@ -303,6 +364,8 @@ class Abstract_Config_Property( models.Model ):
                             property_name_IN,
                             value_IN,
                             property_group_IN = None,
+                            extra_info_IN = None,
+                            extra_info_json_IN = None,
                             *args,
                             **kwargs ):
 
@@ -354,8 +417,10 @@ class Abstract_Config_Property( models.Model ):
 
                 #-- END check to see if any matching properties. --#
 
-                # property retrieved/made.  Set value and save.
+                # property retrieved/made.  Set value, infos, and save.
                 prop_value.property_value = value_IN
+                prop_value.extra_info = extra_info_IN
+                prop_value.extra_info_json = extra_info_json_IN
                 prop_value.save()
                 success_OUT = True
 
