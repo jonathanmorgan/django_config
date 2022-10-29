@@ -39,8 +39,13 @@ class Abstract_Config_Property( models.Model ):
     # Constants-ish
     #---------------------------------------------------------------------------
 
+    # property applications
     APPLICATION_CORE = "core" # Application you can use for site-wide settings.
     APPLICATION_DEFAULT = APPLICATION_CORE
+
+    # property groups
+    PROP_GROUP_BASE = "base"
+    PROP_GROUP_DEFAULT = PROP_GROUP_BASE
 
     # property types
     TYPE_NONE = None
@@ -57,6 +62,30 @@ class Abstract_Config_Property( models.Model ):
         ( TYPE_DECIMAL, 'Decimal' ),
         ( TYPE_BOOLEAN, 'Boolean' )
     )
+    
+    # maintenance command parameters
+    PARAM_NAME_APP = "app"
+    PARAM_NAME_GROUP = "group"
+    PARAM_NAME_NAME = "name"
+    PARAM_NAME_VALUE = "value"
+
+    # map of properties to specs for each, to help initialize configuration table.
+    PROP_NAME_TO_SPEC_MAP = dict()
+    PROPERTY_GROUP = "property_group"
+    PROPERTY_NAME = "property_name"
+    PROPERTY_TYPE = "property_type"
+    PROPERTY_DEFAULT = "property_default"
+
+    # ==> EXAMPLE: PROP_APP_NAME (app_name)
+    #PROP_APP_NAME = "app_name"
+    #current_property_name = PROP_APP_NAME
+    #temp_property_definition = dict()
+    #temp_property_definition[ PROPERTY_GROUP ] = PROP_GROUP_DEFAULT
+    #temp_property_definition[ PROPERTY_NAME ] = current_property_name
+    #temp_property_definition[ PROPERTY_TYPE ] = TYPE_STRING
+    #temp_property_definition[ PROPERTY_DEFAULT ] = None
+    #PROP_NAME_TO_SPEC_MAP[ current_property_name ] = temp_property_definition
+    
 
     #---------------------------------------------------------------------------
     # django model fields
@@ -356,6 +385,53 @@ class Abstract_Config_Property( models.Model ):
         return value_OUT
 
     #-- END method get_property_value() --#
+
+
+    @classmethod
+    def initialize_properties( cls ):
+
+        # declare variables
+        property_list = None
+        prop_key = None
+        property_spec = None
+        property_group = None
+        property_name = None
+        property_type = None
+        property_default = None
+        property_qs = None
+        property_count = None
+        prop_instance = None
+
+        # loop over property name-to-spec map
+        for prop_key, property_spec in cls.PROP_NAME_TO_SPEC_MAP.items():
+
+            # get valudes from spec
+            property_group = property_spec[ cls.PROPERTY_GROUP ]
+            property_name = property_spec[ cls.PROPERTY_NAME ]
+            property_type = property_spec[ cls.PROPERTY_TYPE ]
+            property_default = property_spec[ cls.PROPERTY_DEFAULT ]
+
+            # check if property exists.
+            property_qs = cls.objects.filter( property_group = property_group )
+            property_qs = property_qs.filter( property_name = property_name )
+            property_count = property_qs.count()
+
+            # create if 0
+            if ( property_count == 0 ):
+
+                # property does not exist. Create it.
+                prop_instance = cls()
+                prop_instance.property_group = property_group
+                prop_instance.property_name = property_name
+                prop_instance.property_type = property_type
+                prop_instance.property_value = property_default
+                prop_instance.save()
+
+            #-- END check if property already set. --#
+
+        #-- END loop over property name-to-spec map --#
+
+    #-- END class method initialize_properties() --#
 
 
     @classmethod
