@@ -1,12 +1,15 @@
 # to build
 
-- in the repo, update the `django_config/build/setup.py` file as needed. This includes:
+- in the repo:
 
-    - description
-    - metadata about version number, license, etc.
-    - dependencies
-    - required python
-
+    - if there are additional files in the repo that you want to be included in the built package, add them to the `django_config/build/MANIFEST.in file.
+    - update the `django_config/build/setup.py` file as needed. This includes:
+    
+        - description
+        - metadata about version number, license, etc.
+        - dependencies
+        - required python
+    
 - on your build machine, make a folder named `django_config_build`.
 - get source code and place it in the `django_config_build` folder.  Either:
 
