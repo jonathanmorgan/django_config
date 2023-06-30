@@ -8,7 +8,7 @@
     - required python
 
 - on your build machine, make a folder named `django_config_build`.
-- get source code and place it in this folder.  Either:
+- get source code and place it in the `django_config_build` folder.  Either:
 
     - clone this repository into that folder: `git clone https://github.com/jonathanmorgan/django_config"
     - or (DO THIS) grab the release source tar ball for the release you want to build.
